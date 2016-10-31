@@ -1,10 +1,10 @@
 export class GameState{
-  states;
-  initialState;
-  actions;
-  transitionModel;
-  goalTest;
-  pathCost;
+  nodes;
+  goal;
+  // initialState;
+  // actions;
+  // transitionModel;
+  // pathCost;
 }
 
 /** State Description:

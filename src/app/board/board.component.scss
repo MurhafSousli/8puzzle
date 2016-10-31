@@ -1,0 +1,31 @@
+:host {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  position: relative;
+  width: 452px;
+  height: 452px;
+  background-color: aquamarine;
+}
+
+.item {
+  position: absolute;
+  transition: all .3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: darkcyan;
+  border: 1px solid black;
+  span {
+    font-size: 3em;
+    color: white;
+  }
+}

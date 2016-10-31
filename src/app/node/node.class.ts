@@ -1,14 +1,17 @@
-export class Node {
-  public goalLocation: Location;
-  public isBlank: boolean;
 
-  constructor(public location: Location) {
-    this.goalLocation = location;
-    this.isBlank = this.goalLocation.left === 360 && this.goalLocation.top === 360;
+export class Node {
+  goalLocation: Location;
+  location: Location;
+  isBlank: boolean;
+
+  constructor(loc: Location, nodeWidth: number) {
+    this.goalLocation = loc;
+    this.location =  Object.assign({}, loc);
+    this.isBlank = this.goalLocation.left === nodeWidth*2 && this.goalLocation.top === nodeWidth*2;
   }
 
-  public goal = () => {
-    return this.location === this.goalLocation;
+  goal = () => {
+    return this.location.left === this.goalLocation.left && this.location.top === this.goalLocation.top;
   };
 }
 
