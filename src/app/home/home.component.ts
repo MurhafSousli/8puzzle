@@ -1,10 +1,12 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  selector: 'home',
+  templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-  shareDialog: boolean = false;
+export class HomeComponent {
+
+  constructor() { }
+
 }

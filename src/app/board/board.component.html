@@ -1,10 +1,11 @@
-<div class="board">
-  <div class="item" *ngFor="let node of aiService.nodes; let i = index" [ngStyle]="getStyles(node)" (click)="nodeClick(node)">
-    <span>{{i+1}}</span>
+<div class="game">
+  <div #board class="board" [class.over]="state.goal" [class.show-tiles]="showTiles">
+    <div class="tile" *ngFor="let tile of state.tiles" [ngStyle]="getStyles(tile)" (click)="moveTile(tile)">
+      <span>{{tile.goal.index}}</span>
+    </div>
+    <div #background class="background" [style.backgroundImage]="'url('+state.image+')'"></div>
   </div>
+  <label><input type="checkbox" [(ngModel)]="showTiles">Show numbers</label>
 </div>
 
-<button (click)="aiService.solve()">Solve</button>
-<button (click)="aiService.shuffle()">Shuffle</button>
 
-<pre>{{aiService.goalTest()}}</pre>

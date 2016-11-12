@@ -1,0 +1,59 @@
+gallery {
+  box-shadow: inset $boxshadow;
+  position: relative;
+  display: flex;
+  overflow: auto;
+  height: 135px;
+  background-color: $primary-color;// $bg-dark-color;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $bg-dark-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $bg-dark-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $primary-color;
+  }
+}
+
+.photos {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  &-item {
+    padding: 5px;
+    img {
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100px;
+      height: 100px;
+      transition: box-shadow .2s linear;
+      box-shadow: 0 0 3px black;
+      &:hover{
+        box-shadow: 0 0 6px $sec-color;
+      }
+    }
+  }
+}
+
+@media (min-width: 650px) {
+  gallery {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 150px;
+  }
+  .photos {
+    flex-direction: column;
+  }
+}
+
+

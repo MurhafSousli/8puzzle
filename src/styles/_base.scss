@@ -1,0 +1,152 @@
+html, body {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  font-family: $base-font;
+  background-color: $bg-color;
+  color: $sec-color;
+}
+label{
+  font-size: .8em;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  box-shadow: $boxshadow;
+  position: relative;
+  background-color: $bg-dark-color;
+  color: white;
+  height: $header-height;
+  z-index: 2000;
+
+  h1 {
+    flex: 1;
+    margin: 5px;
+    text-align: center;
+    font-size: 1.7em;
+  }
+  nav {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      text-decoration: none;
+      background-color: $bg-dark-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: normal;
+      color: $sec-dark-color;
+      height: 100%;
+      width: 50px;
+      font-size: 1.3em;
+      cursor: pointer;
+      &:hover {
+        background-color: $sec-dark-color;
+        color: $bg-dark-color;
+      }
+    }
+  }
+}
+
+main {
+  flex: 1;
+  display: flex;
+  width: 100%;
+}
+home{
+  flex: 1;
+  display: flex;
+}
+.home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+game {
+  flex: 1;
+}
+
+menu {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content:space-around;
+}
+
+game, menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.model-container{
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  top:$header-height;
+  bottom:0;
+  .modal {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    height: 450px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $sec-dark-color;
+    border-radius: 8px;
+    z-index: 1005;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    animation-duration: .4s;
+  }
+  .overlay{
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(black, .7);
+    transition: background-color 1s ease-in;
+  }
+}
+
+@media (max-width: 450px) {
+  header h1{
+    text-align: left;
+    padding-left: 10px;
+  }
+}
+
+.sb-container{
+  h3{
+    text-align: center;
+    color: $primary-color;
+    margin-bottom: 0;
+  }
+}
+
+.sb-buttons{
+  flex-direction: column;
+}
+.copyright {
+  margin-right: -125px;
+  position: fixed;
+  transform: rotate(90deg);
+  top: 50%;
+  right: 0;
+  z-index: 9999;
+  text-transform: uppercase;
+  font-size: .7em;
+  color: $sec-dark-color;
+}

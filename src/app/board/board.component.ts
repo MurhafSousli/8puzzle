@@ -1,35 +1,56 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {AiService} from "../ai/ai.service";
+import {
+  Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef,
+  Renderer, OnInit
+} from '@angular/core';
+import {PuzzleTile} from "../puzzleTile/puzzle-tile.class";
+import {GameState} from "../state/state.class";
 
 @Component({
   selector: 'board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardComponent implements OnInit {
 
-  constructor(private aiService: AiService) {
+  @Input() state: GameState;
+  @Output() move = new EventEmitter<PuzzleTile>();
+
+  backgroundSize;
+  showTiles: boolean = false;
+  @ViewChild('board') board: ElementRef;
+  @ViewChild('background') background: ElementRef;
+
+
+  constructor(private renderer: Renderer) {
+
   }
 
   ngOnInit() {
+    let boardSize = this.state.tileSize * 3;
+    this.backgroundSize = boardSize + 'px ' + boardSize + 'px';
+    this.renderer.setElementStyle(this.board.nativeElement, 'width', boardSize + 'px');
+    this.renderer.setElementStyle(this.board.nativeElement, 'height', boardSize + 'px');
+    this.renderer.setElementStyle(this.background.nativeElement, 'background-size', this.backgroundSize);
   }
 
-  getStyles(node) {
+  getStyles(tile: PuzzleTile) {
     return {
-      top: node.location.top + 'px',
-      left: node.location.left + 'px',
-      width: this.aiService.nodeWidth + 'px',
-      height: this.aiService.nodeWidth + 'px',
-      visibility: (node.isBlank) ? 'hidden' : 'visible',
+      top: tile.current.location.top + 'px',
+      left: tile.current.location.left + 'px',
+      width: this.state.tileSize + 'px',
+      height: this.state.tileSize + 'px',
+      display: (tile.isBlank) ? 'none' : 'flex',
+      backgroundImage: 'url(' + this.state.image + ')',
+      backgroundPosition: (-tile.goal.location.left) + "px " + (-tile.goal.location.top) + "px",
+      backgroundSize: this.backgroundSize
     };
-
   }
 
-  nodeClick(node){
-    this.aiService.move(node);
-  }
 
+  moveTile(tile) {
+    if (this.state.goal) return;
+    this.move.emit(tile);
+  }
 
 }
 

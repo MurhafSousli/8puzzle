@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { AiService } from './ai.service';
+import { AiService } from './puzzle.service';
 
 describe('Service: AiService', () => {
   beforeEach(() => {

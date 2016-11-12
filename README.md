@@ -1,31 +1,23 @@
-# Puzzle
+# Memory
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.
+<p align="center"><img style="text-align: center;" src="/assets/cover.png?raw=true"></p>
+8-puzzle game is a sliding puzzle that consists of a frame of numbered square tiles in random order with one tile missing.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The object of the puzzle is to place the tiles in order (see diagram) by making sliding moves that use the empty space.
 
-## Code scaffolding
+This project was intentionally programmed to solve the n-puzzle problem with artificial inelegance algorithms.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+Powered by Angular2
 
-## Build
+ - Checkout the [Memory Game](https://murhafsousli.github.io/memory/)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Author
 
-## Running unit tests
+ **[Murhaf Sousli](http://murhafsousli.com)**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ - [github/murhafsousli](https://github.com/MurhafSousli)
+ - [twitter/murhafsousli](https://twitter.com/MurhafSousli)
 
-## Running end-to-end tests
+## License
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[![npm](https://img.shields.io/npm/l/express.svg?maxAge=2592000)](/LICENSE)
