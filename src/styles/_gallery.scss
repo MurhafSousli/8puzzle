@@ -3,7 +3,7 @@ gallery {
   position: relative;
   display: flex;
   overflow: auto;
-  height: 135px;
+  height: 110px;
   background-color: $primary-color;// $bg-dark-color;
 
   &::-webkit-scrollbar {
@@ -32,8 +32,8 @@ gallery {
     img {
       cursor: pointer;
       border-radius: 5px;
-      width: 100px;
-      height: 100px;
+      width: 75px;
+      height: 75px;
       transition: box-shadow .2s linear;
       box-shadow: 0 0 3px black;
       &:hover{
@@ -43,7 +43,7 @@ gallery {
   }
 }
 
-@media (min-width: 650px) {
+@media (min-width: 769px) {
   gallery {
     position: absolute;
     top: 0;
@@ -53,6 +53,10 @@ gallery {
   }
   .photos {
     flex-direction: column;
+    img {
+      width: 100px;
+      height: 100px;
+    }
   }
 }
 

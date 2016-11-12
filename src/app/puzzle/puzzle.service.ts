@@ -13,33 +13,34 @@ export class PuzzleService {
   tileSize;
   puzzleImage: string;
   images = [
-    '../../assets/dog.jpg',
-    '../../assets/adriana.jpg',
-    '../../assets/romance.jpg',
-    '../../assets/tiger.jpg',
-    '../../assets/cartoon1.jpg',
-    '../../assets/cartoon2.jpg',
-    '../../assets/cartoon3.jpg'
+    prefixPath('../../assets/dog.jpg'),
+    prefixPath('../../assets/adriana.jpg'),
+    prefixPath('../../assets/romance.jpg'),
+    prefixPath('../../assets/tiger.jpg'),
+    prefixPath('../../assets/cartoon1.jpg'),
+    prefixPath('../../assets/cartoon2.jpg'),
+    prefixPath('../../assets/cartoon3.jpg')
   ];
 
   constructor(private store: Store<GameState>) {
   }
 
   initialize() {
-      this.puzzleImage = this.images[0];
-      /** prepare the goal state with indexes and proper locations */
-      let i = 0;
-      for (let top = 0; top < this.tileSize * 3; top += this.tileSize)
-        for (let left = 0; left < this.tileSize * 3; left += this.tileSize)
-          this._prepTiles.push(new Tile(++i, new Location(top, left)));
-      this.mapNodes();
+    this.puzzleImage = this.images[0];
+    /** prepare the goal state with indexes and proper locations */
+    let tileIndex = 0;
+    for (let x = 0; x < 3; x++)
+      for (let y = 0; y < 3; y++)
+        this._prepTiles.push(new Tile(++tileIndex, new Location(this.tileSize * x, this.tileSize * y)));
+
+    this.mapTiles();
   }
 
-  mapNodes() {
-    /** fill nodes with locations */
+  mapTiles() {
+    /** fill tiles with locations */
     this.tiles = [];
-    this._prepTiles.map((node)=> {
-      this.tiles.push(new PuzzleTile(node, this.tileSize));
+    this._prepTiles.map((tile)=> {
+      this.tiles.push(new PuzzleTile(tile));
     });
     this.updateState();
   }
@@ -63,16 +64,16 @@ export class PuzzleService {
   }
 
   /** Move a tile */
-  move(node: PuzzleTile) {
+  move(tile: PuzzleTile) {
     let blank = this._getBlankTile();
     let blankLoc = this._getBlankTile().current.location;
-    let nodeLoc = node.current.location;
+    let tileLoc = tile.current.location;
     /** Check Horizontally */
-    if (nodeLoc.top === blankLoc.top) {
-      if (nodeLoc.left - blankLoc.left === this.tileSize) {
+    if (tileLoc.top === blankLoc.top) {
+      if (tileLoc.left - blankLoc.left === this.tileSize) {
         console.log('Left');
       }
-      else if (blankLoc.left - nodeLoc.left === this.tileSize) {
+      else if (blankLoc.left - tileLoc.left === this.tileSize) {
         console.log('Right');
       }
       else {
@@ -81,11 +82,11 @@ export class PuzzleService {
       }
     }
     /** Check Vertically */
-    else if (nodeLoc.left === blankLoc.left) {
-      if (nodeLoc.top - blankLoc.top === this.tileSize) {
+    else if (tileLoc.left === blankLoc.left) {
+      if (tileLoc.top - blankLoc.top === this.tileSize) {
         console.log('Top');
       }
-      else if (blankLoc.top - nodeLoc.top === this.tileSize) {
+      else if (blankLoc.top - tileLoc.top === this.tileSize) {
         console.log('Bottom');
       }
       else {
@@ -97,13 +98,12 @@ export class PuzzleService {
       console.log("You can't move this.");
       return;
     }
-    let temp = node.current;
-    node.current = blank.current;
+    let temp = tile.current;
+    tile.current = blank.current;
     blank.current = temp;
 
     this.updateState();
   }
-
 
   solve() {
     // this._getAvailableTiles();
@@ -113,13 +113,14 @@ export class PuzzleService {
   /** Get a new solvable puzzle  */
   shuffle() {
     this._prepTiles = shuffleArray(this._prepTiles);
-    for (let i = 0; i < this._prepTiles.length; i++) {
-      this.tiles[i].current = this._prepTiles[i];
-    }
     /** Keep shuffling until getting a solvable puzzle */
-    if (!this._isSolvable()) {
+    if (!isSolvable(this._prepTiles)) {
       this.shuffle();
+      return;
     }
+    this._prepTiles.map((tile, i)=> {
+      this.tiles[i].current = this._prepTiles[i];
+    });
     this.updateState();
   }
 
@@ -128,20 +129,10 @@ export class PuzzleService {
     return this.tiles[8];
   }
 
-  /** Check if puzzle is solvable */
-  private _isSolvable() {
-    let invCount = 0;
-    for (let i = 0; i < this.tiles.length - 1; i++)
-      for (let j = i + 1; j < this.tiles.length - 1; j++)
-        if (this.tiles[j].current.index > this.tiles[i].current.index)
-          invCount++;
-    return invCount % 2 == 0;
-  }
-
   /** Check if game is over */
   private _goalTest() {
-    for (let node of this.tiles) {
-      let goal = node.isGoal();
+    for (let tile of this.tiles) {
+      let goal = tile.isGoal();
       if (!goal) {
         return false;
       }
@@ -153,37 +144,37 @@ export class PuzzleService {
   _getAvailableTiles() {
     let blank = this._getBlankTile();
     let blankLoc = blank.current.location;
-    let availableNodes = [];
+    let availableTiles = [];
     /** Horizontal availability */
     if (blankLoc.left === this.tileSize) {
       //left & right
-      availableNodes.push(this._getTileByLoc(blankLoc.left - this.tileSize, blankLoc.top));
-      availableNodes.push(this._getTileByLoc(blankLoc.left + this.tileSize, blankLoc.top));
+      availableTiles.push(this._getTileByLoc(blankLoc.left - this.tileSize, blankLoc.top));
+      availableTiles.push(this._getTileByLoc(blankLoc.left + this.tileSize, blankLoc.top));
     }
     else if (blankLoc.left < this.tileSize) {
       //right
-      availableNodes.push(this._getTileByLoc(blankLoc.left + this.tileSize, blankLoc.top));
+      availableTiles.push(this._getTileByLoc(blankLoc.left + this.tileSize, blankLoc.top));
     }
     else {
       //left
-      availableNodes.push(this._getTileByLoc(blankLoc.left - this.tileSize, blankLoc.top));
+      availableTiles.push(this._getTileByLoc(blankLoc.left - this.tileSize, blankLoc.top));
     }
     /** Vertical availability */
     if (blankLoc.top === this.tileSize) {
       //top & bottom
-      availableNodes.push(this._getTileByLoc(blankLoc.left, blankLoc.top - this.tileSize));
-      availableNodes.push(this._getTileByLoc(blankLoc.left, blankLoc.top + this.tileSize));
+      availableTiles.push(this._getTileByLoc(blankLoc.left, blankLoc.top - this.tileSize));
+      availableTiles.push(this._getTileByLoc(blankLoc.left, blankLoc.top + this.tileSize));
     }
     else if (blankLoc.top < this.tileSize) {
       //bottom
-      availableNodes.push(this._getTileByLoc(blankLoc.left, blankLoc.top + this.tileSize));
+      availableTiles.push(this._getTileByLoc(blankLoc.left, blankLoc.top + this.tileSize));
     }
     else {
       //top
-      availableNodes.push(this._getTileByLoc(blankLoc.left, blankLoc.top - this.tileSize));
+      availableTiles.push(this._getTileByLoc(blankLoc.left, blankLoc.top - this.tileSize));
     }
-    highlightNode(availableNodes);
-    return availableNodes;
+    highlightTile(availableTiles);
+    return availableTiles;
   }
 
   /** Get a tile by location  */
@@ -218,6 +209,7 @@ export class PuzzleService {
 
 }
 
+/** Randomize array elements order */
 var shuffleArray = (array) => {
   var currentIndex = array.length, temporaryValue, randomIndex;
   while (0 !== currentIndex) {
@@ -230,11 +222,26 @@ var shuffleArray = (array) => {
   return array;
 };
 
+/** Check if a puzzle is solvable */
+var isSolvable = (arr: Tile[]) => {
+  let invCount = 0;
+  for (let i = 0; i < arr.length - 1; i++)
+    for (let j = i + 1; j < arr.length - 1; j++)
+      if (arr[j].index > arr[i].index)
+        invCount++;
+  return invCount % 2 == 0;
+};
 
-var highlightNode = (availableNodes) => {
+/** Highlight or log available tiles to move */
+var highlightTile = (availableTiles) => {
   console.log("Tiles to switch");
-  availableNodes.map((e) => {
+  availableTiles.map((e) => {
     console.log(e.goal.index + " ");
   });
+};
+
+/** prefix repo path for deploying purpose only */
+var prefixPath = (path) => {
+  return '8puzzle' + path;
 };
 

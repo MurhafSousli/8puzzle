@@ -5,10 +5,10 @@ export class PuzzleTile {
   current: Tile;
   isBlank: boolean;
 
-  constructor(tile: Tile, tileWidth: number) {
+  constructor(tile: Tile) {
     this.goal = Object.assign({}, tile);
     this.current = Object.assign({}, tile);
-    this.isBlank = this.goal.location.left === tileWidth * 2 && this.goal.location.top === tileWidth * 2;
+    this.isBlank = (tile.index === 9);
   }
 
   isGoal(): boolean {

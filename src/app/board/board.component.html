@@ -1,11 +1,11 @@
 <div class="game">
-  <div #board class="board" [class.over]="state.goal" [class.show-tiles]="showTiles">
-    <div class="tile" *ngFor="let tile of state.tiles" [ngStyle]="getStyles(tile)" (click)="moveTile(tile)">
+  <div #board class="board" [class.over]="state.goal" [class.show-tiles]="showNumbers">
+    <div class="tile animated" *ngFor="let tile of state.tiles" [ngStyle]="getStyles(tile)" (click)="moveTile(tile)">
       <span>{{tile.goal.index}}</span>
     </div>
     <div #background class="background" [style.backgroundImage]="'url('+state.image+')'"></div>
   </div>
-  <label><input type="checkbox" [(ngModel)]="showTiles">Show numbers</label>
+  <label><input type="checkbox" [(ngModel)]="showNumbers">Show numbers</label>
 </div>
 
 

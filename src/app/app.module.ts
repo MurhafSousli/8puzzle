@@ -11,12 +11,13 @@ import {AppComponent} from './app.component';
 import {BoardComponent} from './board/board.component';
 import {StoreModule} from "@ngrx/store";
 import {stateReducer} from "./store/state.reducer";
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+// import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {MenuComponent} from './menu/menu.component';
 import {GalleryComponent} from './gallery/gallery.component';
 import {AboutComponent} from './about/about.component';
 import {HomeComponent} from './home/home.component';
 import {GameComponent} from './game/game.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {GameComponent} from './game/game.component';
     ShareButtonsModule
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     PuzzleService
   ],
   bootstrap: [AppComponent]

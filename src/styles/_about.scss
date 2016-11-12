@@ -10,7 +10,7 @@ about{
 }
 .container{
   max-width: 600px;
-  margin: 0 auto;
+  margin: 15px;
 }
 
 .footer-social-links {
@@ -18,7 +18,7 @@ about{
   justify-content: space-around;
   font-size: 20px;
   text-align: center;
-  padding: 2em;
+  padding: 15px;
   margin-top: 1em;
   a {
     width: $socialLinkSize;

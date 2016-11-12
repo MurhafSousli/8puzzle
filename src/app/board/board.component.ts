@@ -16,7 +16,7 @@ export class BoardComponent implements OnInit {
   @Output() move = new EventEmitter<PuzzleTile>();
 
   backgroundSize;
-  showTiles: boolean = false;
+  showNumbers: boolean = false;
   @ViewChild('board') board: ElementRef;
   @ViewChild('background') background: ElementRef;
 

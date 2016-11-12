@@ -20,16 +20,25 @@ export class GameComponent implements AfterContentInit{
   ngAfterContentInit() {
     if (window.innerWidth > window.innerHeight) {
       /** Size for large screens */
-      if (window.innerWidth > 600) {
-        this.puzzle.tileSize = window.innerHeight / 3 - 65;
+      if (window.innerWidth < 600) {
+        console.log('screen < 600');
+        this.puzzle.tileSize = Math.floor((window.innerHeight - 230) / 3);
       }
       else {
-        this.puzzle.tileSize = window.innerWidth / 3 - 20;
+        console.log('screen >600');
+        this.puzzle.tileSize = Math.floor((window.innerHeight - 200) / 3);
       }
     }
     else {
       /** Size for mobile screens */
-      this.puzzle.tileSize = window.innerWidth / 3 - 10;
+       if(window.innerHeight < 500){
+         console.log('mobile screen > ');
+         this.puzzle.tileSize = Math.floor((window.innerHeight - 90) / 3);
+       }
+       else{
+         console.log('mobile screen > 500');
+         this.puzzle.tileSize = Math.floor((window.innerWidth - 50) / 3);
+       }
     }
     this.puzzle.initialize();
 

@@ -12,7 +12,7 @@
 <div *ngIf="shareDialog" class="model-container" >
 
   <div class="modal animated slideInDown" [class.open]="shareDialog">
-    <share-buttons [shareTitle]="'Share'"></share-buttons>
+    <share-buttons [url]="'https://murhafsousli.github.io/8puzzle'" [shareTitle]="'Share'"></share-buttons>
   </div>
   <div class="overlay animated fadeIn" (click)="shareDialog=false"></div>
 </div>
