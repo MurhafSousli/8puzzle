@@ -1,6 +1,6 @@
 # Memory
 
-<p align="center"><img style="text-align: center;" src="/assets/cover.png?raw=true"></p>
+<p align="center"><img style="text-align: center;" src="src/assets/cover.png?raw=true"></p>
 8-puzzle game is a sliding puzzle that consists of a frame of numbered square tiles in random order with one tile missing.
 
 The object of the puzzle is to place the tiles in order (see diagram) by making sliding moves that use the empty space.
