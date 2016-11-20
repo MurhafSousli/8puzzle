@@ -20,4 +20,4 @@ Powered by Angular2
 
 ## License
 
-[![npm](https://img.shields.io/npm/l/express.svg?maxAge=2592000)](/LICENSE)
+[![AUR](https://img.shields.io/aur/license/yaourt.svg?style=flat-square)](/LICENSE)
